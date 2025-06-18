@@ -1,10 +1,11 @@
 def mostrar_menu():
     print("\nAgenda de contactos:")
     print("1. Agregar nuevo contactos")
-    print("2. Eliminar contacto existente")
-    print("3. Buscar contacto")
-    print("4. Lista de contactos")
-    print("5. Salir del programa")
+    print("2. Editar contacto existente")
+    print("3. Eliminar contacto existente")
+    print("4. Buscar contacto")
+    print("5. Lista de contactos")
+    print("6. Salir del programa")
     print("\n")
 
 def agregar_contacto(agenda):
@@ -13,6 +14,22 @@ def agregar_contacto(agenda):
     email = input("Por favor introduzca el email del contacto: ")
     agenda[nombre] = {"telefono":telefono, "email":email}
     print(f"¡Se ha agregado el contacto {nombre} exitosamente!")
+
+def editar_contacto(agenda):
+    nombre = input("Ingrese el nombre del contacto que desea editar: ")
+    if agenda:
+        if nombre in agenda:
+            nombre_nuevo = input("Introduzca el nuevo nombre del contacto: ")
+            telefono_nuevo = input("Introduzca el nuevo telefono del contacto: ")
+            email_nuevo = input("Introduzca el nuevo email del contacto: ")
+            if nombre_nuevo and telefono_nuevo and email_nuevo:
+                agenda[nombre_nuevo] = agenda.pop(nombre)
+                nombre = nombre_nuevo
+                agenda[nombre]["telefono"] = telefono_nuevo
+                agenda[nombre]["email"] = email_nuevo
+            print("El contacto ha sido actualizado correctamente")
+    else:
+        print(f"El contacto {nombre} no esta en la agenda")
 
 def eliminar_contacto(agenda):
     nombre = input("Ingrese el nombre del contacto que desea eliminar: ")
@@ -53,15 +70,17 @@ def agenda_contactos():
         if opcion == "1":
             agregar_contacto(agenda)
         elif opcion == "2":
-            eliminar_contacto(agenda)
+            editar_contacto(agenda)
         elif opcion == "3":
-            buscar_contacto(agenda)
+            eliminar_contacto(agenda)
         elif opcion == "4":
-            listar_contactos(agenda)
+            buscar_contacto(agenda)
         elif opcion == "5":
+            listar_contactos(agenda)
+        elif opcion == "6":
             print("Saliendo de la agenda de contactos ¡Hasta luego!")
             break
         else:
-            print("Por favor seleccione una opcion valida (del 1 al 5)")
+            print("Por favor seleccione una opcion valida (del 1 al 6)")
 
 agenda_contactos()
